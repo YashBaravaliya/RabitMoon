@@ -86,3 +86,23 @@
 .box a:hover{
     color: aquamarine;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1023px){
+    .main-content,.heading{
+        width: 80vw;
+        /* background: #000; */
+    }
+}
+
+@media screen and (max-width: 767px){
+    /* .page{
+        padding: 20px 0px;
+        
+    } */
+    .main-content,.heading{
+        /* background: #000; */
+        width: 100vw;
+        padding: 0px;
+        padding: 5px;
+    }
+}
