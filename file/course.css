@@ -21,7 +21,7 @@
     /* overflow-y: hidden; */
     justify-content: center;
     width: 60vw;
-    margin: auto ;  
+    margin: 10px auto ;  
     /* background: #fff;   */
     padding: 2px;
 }
@@ -75,6 +75,7 @@
 
 .box li,.ch-name{
     display: flex;
+    align-items: center;
 }
 
 .box a,.sub-page{
@@ -86,6 +87,32 @@
 .box a:hover{
     color: aquamarine;
 }
+
+.ai-content{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ai-box{
+    min-width: 48%;
+    padding: 3px;
+    margin: 2px;
+    /* background: #000; */
+}
+
+.ai-box h3{
+    list-style: 45px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+
+.ai-box img{
+    height: 40px;
+    width: 40px;
+}
+
 
 @media screen and (min-width: 768px) and (max-width: 1023px){
     .main-content,.heading{
