@@ -93,7 +93,7 @@ text-shadow: -10px 5px 10px rgba(0, 0, 0, 0.573);
   
 .page{
     width: 100vw;
-    background: #eeeeee;
+    /* background: #eeeeee; */
     height: 100%;
     display: flex;
     justify-content: center;
@@ -103,7 +103,7 @@ text-shadow: -10px 5px 10px rgba(0, 0, 0, 0.573);
 }
 
 iframe{
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     border: none;
     position: relative;
     overflow-y: hidden;
