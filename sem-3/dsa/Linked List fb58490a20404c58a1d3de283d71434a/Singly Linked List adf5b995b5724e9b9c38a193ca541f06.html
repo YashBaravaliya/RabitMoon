@@ -1,0 +1,973 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Singly Linked List</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="adf5b995-b572-4e9b-9c38-a193ca541f06" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🔗</span></div><h1 class="page-title"><strong><strong>Singly Linked List</strong></strong></h1></header><div class="page-body"><p id="a9906b01-e40d-4d64-aaab-1efc8903498f" class="block-color-blue">Singly Linked List is a linear and unidirectional data structure, where data is saved on the nodes, and each node is connected via a link to its next node. Each node contains a data field and a link to the next node. </p><figure id="cc99bd1a-6811-453e-8d89-64a20afdff0b" class="image"><a href="Singly%20Linked%20List%20adf5b995b5724e9b9c38a193ca541f06/images.jpg"><img style="width:384px" src="Singly%20Linked%20List%20adf5b995b5724e9b9c38a193ca541f06/images.jpg"/></a></figure><p id="728971e3-d4c9-46b6-8494-962eb829f896" class="">
+</p><h2 id="a8ccdad4-1f7f-4c6c-96fc-ed7766fa67f9" class="block-color-orange"><strong>Operations of Singly Linked List</strong></h2><p id="aca5a361-60e2-4ee3-9b81-462505780211" class="block-color-blue">Singly Linked List is good for dynamically allocating memory. It provides all the basic operations of the linked list, i.e., insertion, deletion, searching, updating, merging two linked lists, traversing, etc.</p><p id="bd928a4c-18b8-4750-a289-905bd276f25c" class="block-color-blue">Here we’ll discuss the following operation of the linked list:</p><ol type="1" id="91f89668-aaf9-4e97-a847-9e54a3164fd8" class="block-color-purple numbered-list" start="1"><li>Inserting at the beginning -&gt; Time complexity: O(1)</li></ol><ol type="1" id="366b068a-90cf-4142-83ff-4e9b08c888af" class="block-color-purple numbered-list" start="2"><li>Inserting in between -&gt; Time complexity: O(n)</li></ol><ol type="1" id="d0ee343b-2ec6-4685-991f-cef93193b471" class="block-color-purple numbered-list" start="3"><li>Inserting at the end -&gt; Time complexity: O(n)</li></ol><ol type="1" id="9ded592f-b6e7-4bfe-bbd0-d911eef74150" class="block-color-purple numbered-list" start="4"><li>Inserting after a given Node -&gt; Time complexity: O(1)</li></ol><ol type="1" id="f550f5dd-75be-48bc-9686-2f000f2d6deb" class="block-color-purple numbered-list" start="5"><li>Deleting the first node -&gt; Time complexity: O(1)</li></ol><ol type="1" id="d4ce7d83-a1ab-4f52-a403-a6efa24203ed" class="block-color-purple numbered-list" start="6"><li>Deleting a node in between -&gt; Time complexity: O(n)</li></ol><ol type="1" id="eb617877-6de2-4c87-aa9d-842d258049f6" class="block-color-purple numbered-list" start="7"><li>Deleting the last node -&gt; Time complexity: O(n)</li></ol><ol type="1" id="aa091636-e0c3-4a06-8360-125d518d290a" class="block-color-purple numbered-list" start="8"><li>Deleting the element with a given value from the linked list -&gt; Time complexity: O(n)</li></ol><h1 id="613b4edd-ca32-45e7-b414-7d2678f6af4e" class="block-color-orange">Inserting</h1><h3 id="74a8d551-8fa3-447b-8bca-d08534e8d972" class="block-color-teal"><strong><strong>Insertion at the beginning:</strong></strong></h3><ol type="1" id="5a0d0586-f960-4ecf-9363-d22dcee1346d" class="block-color-purple numbered-list" start="1"><li>Create a struct Node* function <em>insertAtFirst</em> which will return the pointer to the new head.</li></ol><ol type="1" id="fae7dc25-daa6-42e2-8f73-421c1cf828c3" class="block-color-purple numbered-list" start="2"><li>We’ll pass the current head pointer and the data to insert at the beginning, in the function.</li></ol><ol type="1" id="1d534cdb-a8d5-4bcf-80d4-c48d228dfd92" class="block-color-purple numbered-list" start="3"><li>Create a new struct Node* pointer <em>ptr</em>, and assign it a new memory location in the heap.</li></ol><ol type="1" id="ad86660e-8dc6-48ea-abfd-166f3148f7ac" class="block-color-purple numbered-list" start="4"><li>Assign head to the next member of the ptr structure using ptr-&gt; next = head, and the given data to its data member.</li></ol><ol type="1" id="fa80e60f-8865-4eb0-889d-98b19e49c0d4" class="block-color-purple numbered-list" start="5"><li>Return this pointer <em>ptr.</em></li></ol><pre id="834bd7b2-f877-48f0-a035-082131dad50c" class="code"><code>struct Node * insertAtFirst(struct Node *head, int data){
+    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
+    ptr-&gt;data = data;
+ 
+    ptr-&gt;next = head;
+    return ptr; 
+}</code></pre><h3 id="dfccc2c4-6c8c-4f17-b5c1-acd0deae556a" class="block-color-teal"><strong>Insertion in between:</strong></h3><ol type="1" id="1df7d731-2f70-485f-9dae-33b015a348d7" class="block-color-purple numbered-list" start="1"><li>Create a struct Node* function <em>insertAtIndex</em> which will return the pointer to the head.</li></ol><ol type="1" id="d41d5d50-e612-46f7-8706-8e6e5435cfe4" class="block-color-purple numbered-list" start="2"><li>We’ll pass the current head pointer and the data to insert and the index where it will get inserted, in the function.</li></ol><ol type="1" id="b9c89aa5-4fca-49ac-baa5-631446bac0f3" class="block-color-purple numbered-list" start="3"><li>Create a new struct Node* pointer <em>ptr</em>, and assign it a new memory location in the heap.</li></ol><ol type="1" id="279db931-5315-4f2c-b8e9-252d3d9cd929" class="block-color-purple numbered-list" start="4"><li>Create a new struct Node* pointer pointing to <em>head</em>, and run a loop until this pointer reaches the index, where we are inserting a new node.</li></ol><ol type="1" id="2c6ed5f1-b011-40bf-84d0-51c83614aa99" class="block-color-purple numbered-list" start="5"><li>Assign p-&gt;next to the next member of the ptr structure using ptr-&gt; next = p-&gt;next, and the given data to its data member.</li></ol><ol type="1" id="b7ee2415-f71e-4d76-9aa2-c2835eadcb47" class="block-color-purple numbered-list" start="6"><li>Break the connection between p and p-&gt;next by assigning p-&gt;next the new pointer. That is, p-&gt;next = ptr.</li></ol><ol type="1" id="406417ff-3334-4957-b7b7-a3f32cc9e39c" class="block-color-purple numbered-list" start="7"><li>Return head.</li></ol><pre id="2b17ac70-26ed-4c10-b0dd-acb22c085c28" class="code"><code>struct Node * insertAtIndex(struct Node *head, int data, int index){
+    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
+    struct Node * p = head;
+    int i = 0;
+ 
+    while (i!=index-1)
+    {
+        p = p-&gt;next;
+        i++;
+    }
+    ptr-&gt;data = data;
+    ptr-&gt;next = p-&gt;next;
+    p-&gt;next = ptr;
+    return head;
+}</code></pre><h3 id="eae8eefe-a9a5-434e-a7d8-127119afb974" class="block-color-teal"><strong>Insertion at the end:</strong></h3><ol type="1" id="7868c73e-4cd3-4ad0-a93e-9d01c7ed1f79" class="block-color-purple numbered-list" start="1"><li>Inserting at the end is very similar to inserting at any index. The difference holds in the limit of the while loop. Here we run a loop until the pointer reaches the end and points to NULL.</li></ol><ol type="1" id="0fa2a6a1-4ba7-4a85-993f-7ce86ef1756e" class="block-color-purple numbered-list" start="2"><li>Assign NULL to the next member of the new ptr structure using ptr-&gt; next = NULL, and the given data to its data member.</li></ol><ol type="1" id="2e586525-78dc-4319-bfef-e7e014efa09a" class="block-color-purple numbered-list" start="3"><li>Break the connection between p and NULL by assigning p-&gt;next the new pointer. That is, p-&gt;next = ptr.</li></ol><ol type="1" id="df75329b-6088-4f19-8c31-f988b2f35acf" class="block-color-purple numbered-list" start="4"><li>Return head.</li></ol><pre id="a0367225-ba54-47ac-bebd-5d5e5527ace1" class="code"><code>struct Node * insertAtEnd(struct Node *head, int data){
+    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
+    ptr-&gt;data = data;
+    struct Node * p = head;
+ 
+    while(p-&gt;next!=NULL){
+        p = p-&gt;next;
+    }
+    p-&gt;next = ptr;
+    ptr-&gt;next = NULL;
+    return head;
+}</code></pre><h3 id="bcc10e3d-5b1b-41c1-831c-26d8fceaabfc" class="block-color-teal"><strong>Insertion after a given node:</strong></h3><ol type="1" id="9f79bf37-e79f-4ecc-a681-37ff78da98b9" class="block-color-purple numbered-list" start="1"><li>Here, we already have a struct Node* pointer to insert the new node just next to it.</li></ol><ol type="1" id="9024412b-6891-473c-93ab-7b084c9bc639" class="block-color-purple numbered-list" start="2"><li>Create a struct Node* function <em>insertAfterNode</em> which will return the pointer to the head.</li></ol><ol type="1" id="e0c3e096-ba5e-4176-b385-1e396f77b34c" class="block-color-purple numbered-list" start="3"><li>Pass into this function, the head node, the previous node, and the data.</li></ol><ol type="1" id="6be7d584-6629-4815-99b5-8c8ec994aedd" class="block-color-purple numbered-list" start="4"><li>Create a new struct Node* pointer <em>ptr</em>, and assign it a new memory location in the heap.</li></ol><ol type="1" id="ab8a6d37-0567-4abf-832f-dab1e0d22498" class="block-color-purple numbered-list" start="5"><li>Since we already have a struct Node* <em>prevNode </em>given as a parameter, use it as p we had in the previous functions.</li></ol><ol type="1" id="28879d14-ad01-41d7-b3a8-d26908ad016e" class="block-color-purple numbered-list" start="6"><li>Assign prevNode-&gt;next to the next member of the ptr structure using ptr-&gt; next = prevNode-&gt;next, and the given data to its data member.</li></ol><ol type="1" id="32b10586-e548-434d-873e-50b874b01e2e" class="block-color-purple numbered-list" start="7"><li>Break the connection between prevNode and prevNode-&gt;next by assigning prevNode-&gt;next the new pointer. That is, prevNode-&gt;next = ptr.</li></ol><ol type="1" id="2d5e629a-b4a4-4036-8564-4a689814f049" class="block-color-purple numbered-list" start="8"><li>Return head.</li></ol><pre id="b520c402-6680-4b22-9c8e-e09a1bd8d21b" class="code"><code>struct Node * insertAfterNode(struct Node *head, struct Node *prevNode, int data){
+    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
+    ptr-&gt;data = data;
+ 
+    ptr-&gt;next = prevNode-&gt;next;
+    prevNode-&gt;next = ptr;
+ 
+    return head;
+}</code></pre><h2 id="2798bbef-72d9-41a1-bb31-e1ccb67fbd3f" class="block-color-red"><strong>Insertion</strong></h2><pre id="7077315b-13ed-491d-bf73-9e6b7e0be5c6" class="code"><code>#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+
+struct Node{
+    int data;
+    struct Node * next;
+};
+
+void linkedListTraversal(struct Node *ptr)
+{
+    while (ptr != NULL)
+    {
+        printf(&quot;Element: %d\n&quot;, ptr-&gt;data);
+        ptr = ptr-&gt;next;
+    }
+}
+
+struct Node * insertAtFirst(struct Node *head, int data){
+    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
+    ptr-&gt;data = data;
+
+    ptr-&gt;next = head;
+    return ptr; 
+}
+
+struct Node * insertAtIndex(struct Node *head, int data, int index){
+    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
+    struct Node * p = head;
+    int i = 0;
+
+    while (i!=index-1)
+    {
+        p = p-&gt;next;
+        i++;
+    }
+    ptr-&gt;data = data;
+    ptr-&gt;next = p-&gt;next;
+    p-&gt;next = ptr;
+    return head;
+}
+
+struct Node * insertAtEnd(struct Node *head, int data){
+    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
+    ptr-&gt;data = data;
+    struct Node * p = head;
+
+    while(p-&gt;next!=NULL){
+        p = p-&gt;next;
+    }
+    p-&gt;next = ptr;
+    ptr-&gt;next = NULL;
+    return head;
+}
+
+struct Node * insertAfterNode(struct Node *head, struct Node *prevNode, int data){
+    struct Node * ptr = (struct Node *) malloc(sizeof(struct Node));
+    ptr-&gt;data = data;
+
+    ptr-&gt;next = prevNode-&gt;next;
+    prevNode-&gt;next = ptr;
+
+    
+    return head;
+}
+
+
+int main(){
+    struct Node *head;
+    struct Node *second;
+    struct Node *third;
+    struct Node *fourth;
+
+    // Allocate memory for nodes in the linked list in Heap
+    head = (struct Node *)malloc(sizeof(struct Node));
+    second = (struct Node *)malloc(sizeof(struct Node));
+    third = (struct Node *)malloc(sizeof(struct Node));
+    fourth = (struct Node *)malloc(sizeof(struct Node));
+
+    // Link first and second nodes
+    head-&gt;data = 7;
+    head-&gt;next = second;
+
+    // Link second and third nodes
+    second-&gt;data = 11;
+    second-&gt;next = third;
+
+    // Link third and fourth nodes
+    third-&gt;data = 41;
+    third-&gt;next = fourth;
+
+    // Terminate the list at the third node
+    fourth-&gt;data = 66;
+    fourth-&gt;next = NULL;
+
+    printf(&quot;Linked list before insertion\n&quot;);
+    linkedListTraversal(head);
+    head = insertAtFirst(head, 56);
+    head = insertAtIndex(head, 56, 1);
+    head = insertAtEnd(head, 56);
+    head = insertAfterNode(head, third, 45);
+    printf(&quot;\nLinked list after insertion\n&quot;);
+    linkedListTraversal(head);
+
+    
+    return 0;
+}</code></pre><figure id="279e010f-816e-4985-96e6-58ab70bd3fb4" class="image" style="text-align:left"><a href="Singly%20Linked%20List%20adf5b995b5724e9b9c38a193ca541f06/Untitled.png"><img style="width:480px" src="Singly%20Linked%20List%20adf5b995b5724e9b9c38a193ca541f06/Untitled.png"/></a></figure><h1 id="05ea6197-0ec2-4131-83ef-37880011a91c" class="block-color-orange"><strong>Deleting</strong></h1><h3 id="18ff3f4e-e185-4caa-b1ac-1ef9cc4f60d8" class="block-color-teal"><strong>Deleting the first node :</strong></h3><ol type="1" id="1949c35b-4076-4086-b66c-7c607fe636ec" class="block-color-purple numbered-list" start="1"><li>Create a struct Node* function <em>deleteFirst</em> which will return the pointer to the new head after deleting the current head.</li></ol><ol type="1" id="d5f24777-4bd8-4b45-8e29-76e08dd1d90e" class="block-color-purple numbered-list" start="2"><li>We’ll pass the current head pointer in the function.</li></ol><ol type="1" id="decf75e0-a74c-4963-940c-063827bf7f2d" class="block-color-purple numbered-list" start="3"><li>Create a new struct Node* pointer <em>ptr</em>, and make it point to the current head.</li></ol><ol type="1" id="74d2ab6b-2138-4e02-9425-baa8c0695842" class="block-color-purple numbered-list" start="4"><li>Assign head to the next member of the list, by head = head-&gt;next, because this is going to be the new head of the linked list.</li></ol><ol type="1" id="20967b96-15c8-472b-bca8-edaa173675e4" class="block-color-purple numbered-list" start="5"><li>Free the pointer <em>ptr. </em>And return the head</li></ol><pre id="ae5984f8-7fea-4985-a9d5-d4f73ae25981" class="code"><code>// Deleting the first element from the linked list
+struct Node * deleteFirst(struct Node * head){
+    struct Node * ptr = head;
+    head = head-&gt;next;
+    free(ptr);
+    return head;
+}</code></pre><h3 id="8b4404d5-7b94-4f27-9704-a432de8d90d7" class=""><strong>Deleting a node in between:</strong></h3><ol type="1" id="07ea4441-5d63-47a4-b3a5-e6e7c64f7fd6" class="block-color-purple numbered-list" start="1"><li>Create a struct Node* function <em>deleteAtIndex</em> which will return the pointer to the head.</li></ol><ol type="1" id="7712cd46-c2a8-4c03-bce3-8209de3ae843" class="block-color-purple numbered-list" start="2"><li>In the function, we&#x27;ll pass the current head pointer and the index where the node is to be deleted.</li></ol><ol type="1" id="4d4eab42-1988-4a44-b984-2aa6f02f1192" class="block-color-purple numbered-list" start="3"><li>Create a new struct Node* pointer <em>p </em>pointing to <em>head</em>.</li></ol><ol type="1" id="f5bcecd4-1d7c-4c1d-b4fd-0fd784be284f" class="block-color-purple numbered-list" start="4"><li>Create a new struct Node* pointer q pointing to <em>head-&gt;next</em>, and run a loop until this pointer reaches the index, from where we are deleting the node.</li></ol><ol type="1" id="70913edd-b281-4601-ae6b-c7041bda3149" class="block-color-purple numbered-list" start="5"><li>Assign q-&gt;next to the next member of the p structure using p-&gt; next = q-&gt;next.</li></ol><ol type="1" id="06d28fea-a50b-4e04-9f01-13de9a428696" class="block-color-purple numbered-list" start="6"><li>Free the pointer q, because it has zero connections with the list now.</li></ol><ol type="1" id="4104f4f8-351f-487e-89e2-90d017d3951f" class="block-color-purple numbered-list" start="7"><li>Return head.</li></ol><pre id="67cbe6b4-814f-4f1d-8a30-48d016e69874" class="code"><code>// Deleting the element at a given index from the linked list
+struct Node * deleteAtIndex(struct Node * head, int index){
+    struct Node *p = head;
+    struct Node *q = head-&gt;next;
+    for (int i = 0; i &lt; index-1; i++)
+    {
+        p = p-&gt;next;
+        q = q-&gt;next;
+    }
+    
+    p-&gt;next = q-&gt;next;
+    free(q);
+    return head;
+}</code></pre><h3 id="b9876628-0674-4542-aadb-e43f70b987dc" class="block-color-teal"><strong>Deleting the last node :</strong></h3><ol type="1" id="685d8fb6-508a-4b3a-b9c8-f18ba7a41fc2" class="block-color-purple numbered-list" start="1"><li>Deleting the last node is quite similar to deleting from any other index. The difference holds in the limit of the while loop. Here we run a loop until the pointer reaches the end and points to NULL.</li></ol><ol type="1" id="445e22d5-e095-41fb-b011-1c42674d2e03" class="block-color-purple numbered-list" start="2"><li>Assign NULL to the next member of the p structure using p-&gt; next = NULL.</li></ol><ol type="1" id="de1e14d0-b5a2-4ab7-8eae-b291fa178a3a" class="block-color-purple numbered-list" start="3"><li>Break the connection between q and NULL by freeing the ptr q.</li></ol><ol type="1" id="726df6de-2eb4-4ff7-a480-bc4a4f69008a" class="block-color-purple numbered-list" start="4"><li>Return head.</li></ol><pre id="66738b11-67e1-457d-be3e-7819fe64efed" class="code"><code>// Deleting the last element
+struct Node * deleteAtLast(struct Node * head){
+    struct Node *p = head;
+    struct Node *q = head-&gt;next;
+    while(q-&gt;next !=NULL)
+    {
+        p = p-&gt;next;
+        q = q-&gt;next;
+    }
+    
+    p-&gt;next = NULL;
+    free(q);
+    return head;
+}</code></pre><h3 id="b5326e41-477b-4572-acd9-2355133b8494" class="block-color-teal"><strong>Deleting the element with a given value from the linked list :</strong></h3><ol type="1" id="701f941f-9aab-42b6-8e12-c26aecf6cefb" class="block-color-purple numbered-list" start="1"><li>Here, we already have a value that needs to be deleted from the list. The main thing is that we’ll delete only the first occurrence.</li></ol><ol type="1" id="b685ffef-0f2a-493a-a717-a4c697b5acb9" class="block-color-purple numbered-list" start="2"><li>Create a struct Node* function <em>deleteByValue</em> which will return the pointer to the head.</li></ol><ol type="1" id="d30244a6-af86-407a-863f-63d612698ea9" class="block-color-purple numbered-list" start="3"><li>Pass into this function the head node, the value which needs to be deleted.</li></ol><ol type="1" id="21fe791d-ec0d-4438-afe6-dfb0d21e8528" class="block-color-purple numbered-list" start="4"><li>Create a new struct Node* pointer <em>p</em> pointing to the head.</li></ol><ol type="1" id="e8936630-6a97-45ce-ab5a-17da2fc7ae43" class="block-color-purple numbered-list" start="5"><li>Create another struct Node* pointer q pointing to the next of head.</li></ol><ol type="1" id="bb711982-545a-4d75-bbc9-04a917b87508" class="block-color-purple numbered-list" start="6"><li>Run a while loop until the pointer q encounters the given value or the list finishes.</li></ol><ol type="1" id="94b23ef9-e487-4b79-9b29-901bcc9bf856" class="block-color-purple numbered-list" start="7"><li>If it encounters the value, delete that node by making p point the next node, skipping the node q. And free q from memory.</li></ol><ol type="1" id="4321aff5-84f4-425d-9916-4e3d6bc3425c" class="block-color-purple numbered-list" start="8"><li>And if the list just finishes, it means there was no such value in the list. Continue without doing anything.</li></ol><ol type="1" id="30dd7a81-6501-441c-8852-fc6a4e0e38e3" class="block-color-purple numbered-list" start="9"><li>Return head</li></ol><pre id="27d68f1f-0ac9-4151-9232-0b6a1329a070" class="code"><code>// Deleting the element with a given value from the linked list
+struct Node * deleteByValue(struct Node * head, int value){
+    struct Node *p = head;
+    struct Node *q = head-&gt;next;
+    while(q-&gt;data!=value &amp;&amp; q-&gt;next!= NULL)
+    {
+        p = p-&gt;next;
+        q = q-&gt;next;
+    }
+    
+    if(q-&gt;data == value){
+        p-&gt;next = q-&gt;next;
+        free(q);
+    }
+    return head;
+}</code></pre><h2 id="3fa88248-2d4c-427e-a879-e27758b3559f" class="block-color-red"><strong>Deletion</strong></h2><pre id="30fb4573-355d-4239-9125-5a1dc0df1e7f" class="code"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+void linkedListTraversal(struct Node *ptr)
+{
+    while (ptr != NULL)
+    {
+        printf(&quot;Element: %d\n&quot;, ptr-&gt;data);
+        ptr = ptr-&gt;next;
+    }
+}
+
+// Deleting the first element from the linked list
+struct Node * deleteFirst(struct Node * head){
+    struct Node * ptr = head;
+    head = head-&gt;next;
+    free(ptr);
+    return head;
+}
+
+// Deleting the element at a given index from the linked list
+struct Node * deleteAtIndex(struct Node * head, int index){
+    struct Node *p = head;
+    struct Node *q = head-&gt;next;
+    for (int i = 0; i &lt; index-1; i++)
+    {
+        p = p-&gt;next;
+        q = q-&gt;next;
+    }
+    
+    p-&gt;next = q-&gt;next;
+    free(q);
+    return head;
+}
+
+// Deleting the last element
+struct Node * deleteAtLast(struct Node * head){
+    struct Node *p = head;
+    struct Node *q = head-&gt;next;
+    while(q-&gt;next !=NULL)
+    {
+        p = p-&gt;next;
+        q = q-&gt;next;
+    }
+    
+    p-&gt;next = NULL;
+    free(q);
+    return head;
+}
+
+
+// Deleting the element with a given value from the linked list
+struct Node * deleteByValue(struct Node * head, int value){
+    struct Node *p = head;
+    struct Node *q = head-&gt;next;
+    while(q-&gt;data!=value &amp;&amp; q-&gt;next!= NULL)
+    {
+        p = p-&gt;next;
+        q = q-&gt;next;
+    }
+    
+    if(q-&gt;data == value){
+        p-&gt;next = q-&gt;next;
+        free(q);
+    }
+    return head;
+}
+int main()
+{
+    struct Node *head;
+    struct Node *second;
+    struct Node *third;
+    struct Node *fourth;
+
+    // Allocate memory for nodes in the linked list in Heap
+    head = (struct Node *)malloc(sizeof(struct Node));
+    second = (struct Node *)malloc(sizeof(struct Node));
+    third = (struct Node *)malloc(sizeof(struct Node));
+    fourth = (struct Node *)malloc(sizeof(struct Node));
+
+    // Link first and second nodes
+    head-&gt;data = 4;
+    head-&gt;next = second;
+
+    // Link second and third nodes
+    second-&gt;data = 3;
+    second-&gt;next = third;
+
+    // Link third and fourth nodes
+    third-&gt;data = 8;
+    third-&gt;next = fourth;
+
+    // Terminate the list at the third node
+    fourth-&gt;data = 1;
+    fourth-&gt;next = NULL;
+
+    printf(&quot;Linked list before deletion\n&quot;);
+    linkedListTraversal(head);
+
+    head = deleteFirst(head); // For deleting first element of the linked list
+    head = deleteAtIndex(head, 2);
+    head = deleteAtLast(head);
+    printf(&quot;Linked list after deletion\n&quot;);
+    linkedListTraversal(head);
+
+    return 0;
+}</code></pre><figure id="5e88d89f-332d-49e0-b1af-68485323badc" class="image" style="text-align:left"><a href="Singly%20Linked%20List%20adf5b995b5724e9b9c38a193ca541f06/Untitled%201.png"><img style="width:492px" src="Singly%20Linked%20List%20adf5b995b5724e9b9c38a193ca541f06/Untitled%201.png"/></a></figure></div></article></body></html>
