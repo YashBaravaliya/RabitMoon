@@ -26,7 +26,7 @@
     </header>
 
     <div class="page">
-        <iframe src="../../sem-3/dsa/Introduction to Data Structure.html" title="Iframe"  scrolling="no" id="iframe" onload="resizeIframe(this)" ></iframe>
+        <iframe src="../../sem-3/dsa/Introduction to Data Structure.html" title="Iframe"  scrolling="no" id="iframe" onload="resizeIframe(this),myfunction()" ></iframe>
     </div>
 
     <div class="card" style="position:fixed ;">
@@ -113,8 +113,22 @@
         </div>
     </div>
 
+    <div class="spinner" id="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
 
     <script>
+      var loder = document.getElementById('loader');
+
+      function myfunction(){
+        loder.style.display = 'none';
+      }
 
         function resizeIframe(obj) {
           obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
